@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Concurso Agrinho 2026 | Agro Forte, Futuro Sustentável</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <i class="fa-solid fa-leaf"></i> Eco<span>Produtivo</span>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#sobre">O Tema</a></li>
+                    <li><a href="#simulador">Simulador Interativo</a></li>
+                    <li><a href="#dicas">Práticas Sustentáveis</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="inicio" class="hero">
+        <div class="container hero-content">
+            <h1>Agro Forte, Futuro Sustentável</h1>
+            <p>O equilíbrio perfeito entre a alta produtividade no campo e a preservação do meio ambiente. Descubra como a tecnologia e a Pedagogia da Pesquisa transformam o ecossistema agrícola do Paraná.</p>
+            <a href="#simulador" class="btn-main">Testar Simulador Interativo</a>
+        </div>
+    </section>
+
+    <section id="sobre" class="about-section">
+        <div class="container">
+            <h2>Equilíbrio: Produção e Meio Ambiente</h2>
+            <p class="subtitle">Pedagogia da Pesquisa aplicada à realidade do campo</p>
+            <div class="grid-about">
+                <div class="about-card">
+                    <i class="fa-solid fa-seedling"></i>
+                    <h3>O Grande Desafio</h3>
+                    <p>Alimentar uma população crescente exige eficiência. Contudo, o verdadeiro poder do Agro do Paraná está em produzir mais utilizando menos recursos naturais, protegendo o solo e a água.</p>
+                </div>
+                <div class="about-card">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <h3>Sustentabilidade Lucrativa</h3>
+                    <p>Práticas sustentáveis não reduzem o lucro; pelo contrário, evitam o desperdício de insumos, recuperam áreas degradadas e abrem portas para o mercado internacional carbononegativo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="simulador" class="simulator-section">
+        <div class="container">
+            <h2>Simulador de Impacto e Eficiência Agrícola</h2>
+            <p class="subtitle">Altere os parâmetros da fazenda para calcular a pegada de CO₂ e a economia anual esperada.</p>
+            
+            <div class="simulator-container">
+                <div class="sim-form">
+                    <h3>Configurações da Propriedade</h3>
+                    
+                    <div class="form-group">
+                        <label for="tamanho">Tamanho da Área Cultivada (Hectares):</label>
+                        <input type="number" id="tamanho" value="50" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="manejo">Sistema de Manejo do Solo:</label>
+                        <select id="manejo">
+                            <option value="convencional">Manejo Convencional (Arado/Grade)</option>
+                            <option value="direto">Sistema de Plantio Direto (SPD)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="energia">Fonte Principal de Energia:</label>
+                        <select id="energia">
+                            <option value="rede">Rede Elétrica Comum / Diesel</option>
+                            <option value="solar">Energia Solar Fotovoltaica</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tecnologia">Uso de Tecnologia/Agricultura de Precisão:</label>
+                        <select id="tecnologia">
+                            <option value="nao">Não utiliza (Aplicação uniforme)</option>
+                            <option value="sim">Sim (Drones, Sensores e GPS)</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-calcular" onclick="calcularImpacto()">Atualizar Indicadores</button>
+                </div>
+
+                <div class="sim-results">
+                    <h3>Painel de Sustentabilidade</h3>
+                    
+                    <div class="result-card" id="card-co2">
+                        <h4>Emissão Estada de CO₂</h4>
+                        <p class="result-value" id="val-co2">0.00 toneladas/ano</p>
+                        <span class="status-badge" id="badge-co2">Moderado</span>
+                    </div>
+
+                    <div class="result-card" id="card-economia">
+                        <h4>Economia de Insumos & Energia</h4>
+                        <p class="result-value" id="val-economia">R$ 0,00 / ano</p>
+                        <span class="status-badge" id="badge-economia">Pode melhorar</span>
+                    </div>
+
+                    <div class="feedback-box">
+                        <h4><i class="fa-solid fa-lightbulb"></i> Diagnóstico do Especialista:</h4>
+                        <p id="txt-diagnostico">Preencha os dados e clique em calcular para obter uma análise em tempo real baseada em dados científicos da Embrapa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dicas" class="tips-section">
+        <div class="container">
+            <h2>Ações Práticas para o Produtor do Futuro</h2>
+            <div class="tips-grid">
+                <div class="tip-item">
+                    <span class="num">01</span>
+                    <h4>Rotação de Culturas</h4>
+                    <p>Alternar espécies de plantas na mesma área melhora a biologia do solo, quebra o ciclo de pragas e fixa nitrogênio naturalmente.</p>
+                </div>
+                <div class="tip-item">
+                    <span class="num">02</span>
+                    <h4>Manejo Integrado de Pragas (MIP)</h4>
+                    <p>Utilizar inimigos naturais e monitoramento constante para reduzir drasticamente a dependência de defensivos químicos.</p>
+                </div>
+                <div class="tip-item">
+                    <span class="num">03</span>
+                    <h4>Preservação de Matas Ciliares</h4>
+                    <p>Proteger as margens de rios e nascentes evita o assoreamento e garante a segurança hídrica da própria propriedade agrícola.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container footer-content">
+            <p>&copy; 2026 Projeto EcoProdutivo - Concurso Agrinho Paraná.</p>
+            <p>Desenvolvido com foco na Pedagogia da Pesquisa e Soluções Tecnológicas.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
