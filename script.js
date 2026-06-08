@@ -4,50 +4,49 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 function calcularImpacto() {
-    // 1. Obtenção dos dados digitados/selecionados pelo usuário
+    // 1. Obtenção dos dados selecionados pelo usuário
     const tamanhoArea = parseFloat(document.getElementById("tamanho").value);
     const tipoManejo = document.getElementById("manejo").value;
     const tipoEnergia = document.getElementById("energia").value;
     const usaTecnologia = document.getElementById("tecnologia").value;
 
-    // Validação simples para evitar valores negativos ou vazios
+    // Validação para evitar valores vazios, zero ou negativos
     if (isNaN(tamanhoArea) || tamanhoArea <= 0) {
-        alert("Por favor, insira um tamanho de área válido.");
+        alert("Por favor, insira um tamanho de área válido (maior que 0).");
         return;
     }
 
-    // 2. Variáveis base de cálculo (Fatores baseados em pesquisas agroambientais)
-    let emissaoBasePorHectare = 1.2; // toneladas de CO2 equivalente por hectare ao ano
-    let economiaBasePorHectare = 0;   // economia financeira gerada por eficiência
+    // 2. Variáveis base de cálculo (Fatores por hectare/ano)
+    let emissaoBasePorHectare = 1.2; // toneladas de CO2
+    let economiaBasePorHectare = 0;   // em Reais (R$)
 
-    // 3. Aplicação da lógica das decisões do produtor (Variáveis e Condicionais)
+    // 3. Lógica das decisões (Condicionais)
     
     // Impacto do Manejo do Solo
     if (tipoManejo === "direto") {
-        // O Plantio Direto sequestra carbono e evita queima de combustível mecânico
-        emissaoBasePorHectare -= 0.5;
-        economiaBasePorHectare += 150; // Economia em diesel e horas de trator
+        emissaoBasePorHectare -= 0.5; // Reduz emissão
+        economiaBasePorHectare += 150; // Economia com combustível/trator
     }
 
     // Impacto da Matriz Energética
     if (tipoEnergia === "solar") {
-        emissaoBasePorHectare -= 0.3;
-        economiaBasePorHectare += 400; // Forte redução na conta de luz/geradores
+        emissaoBasePorHectare -= 0.3; // Reduz emissão
+        economiaBasePorHectare += 400; // Economia na conta de luz
     }
 
     // Impacto da Tecnologia de Precisão
     if (usaTecnologia === "sim") {
-        emissaoBasePorHectare -= 0.2;
-        economiaBasePorHectare += 250; // Economia de fertilizantes e defensivos cirúrgicos
+        emissaoBasePorHectare -= 0.2; // Reduz emissão
+        economiaBasePorHectare += 250; // Economia em fertilizantes/defensivos
     }
 
-    // Garante que a emissão nunca seja absurdamente negativa de forma irreal
-    if (emissaoBasePorHectare < 0.1) emissaoBasePorHectare = 0.1;
+    // Garante que a emissão não seja zerada ou negativa de forma irreal
+    if (emissaoBasePorHectare < 0.1) {
+        emissaoBasePorHectare = 0.1;
+    }
 
-    // 4. Cálculos Finais Totais
+    // 4. Cálculos Finais Totais (Multiplicados pela área da fazenda)
     const emissaoTotal = tamanhoArea * emissaoBasePorHectare;
-    const economiaTotal = tamanhoArea * economyBasePorHectare(); 
-    // Nota: ajuste para somar a economia correta multiplicada pela área
     const economiaFinalTotal = tamanhoArea * economiaBasePorHectare;
 
     // 5. Atualização Dinâmica da Interface (DOM)
@@ -57,12 +56,12 @@ function calcularImpacto() {
     const badgeEconomia = document.getElementById("badge-economia");
     const txtDiagnostico = document.getElementById("txt-diagnostico");
 
-    // Formatação de valores numéricos na tela
+    // Inserindo os valores calculados formatados na tela
     valCo2.innerText = `${emissaoTotal.toFixed(2)} toneladas/ano`;
-    valEconomia.innerText = economiaFinalTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' / ano';
+    valEconomia.innerText = economiaFinalTotal.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 
-    // 6. Lógica das Badges de Status e Diagnóstico Customizado
-    if (emissaoBasePorHectare <= 0.4) {
+    // 6. Lógica das Badges de Status (Cores e Textos)
+    if (emissaoBasePorHectare <= 0.5) {
         badgeCo2.innerText = "Excelente (Baixo Carbono)";
         badgeCo2.className = "status-badge badge-green";
     } else {
@@ -70,7 +69,7 @@ function calcularImpacto() {
         badgeCo2.className = "status-badge badge-orange";
     }
 
-    if (economiaFinalTotal > (tamanhoArea * 300)) {
+    if (economiaBasePorHectare >= 400) {
         badgeEconomia.innerText = "Alta Eficiência";
         badgeEconomia.className = "status-badge badge-green";
     } else {
@@ -78,21 +77,21 @@ function calcularImpacto() {
         badgeEconomia.className = "status-badge badge-orange";
     }
 
-    // Construção do Diagnóstico Baseado em Evidências Científicas (Pedagogia da Pesquisa)
+    // 7. Construção do Diagnóstico Personalizado (Pedagogia da Pesquisa)
     let diagnostico = "";
 
     if (tipoManejo === "convencional") {
-        diagnostico += "Alerta: O revolvimento convencional do solo libera carbono armazenado. Mudar para o Plantio Direto pode mitigar muito suas emissões. ";
+        diagnostico += "Alerta: O revolvimento convencional libera o CO₂ armazenado no solo. Adotar o Plantio Direto protegeria sua terra e mitigaria emissões. ";
     } else {
-        diagnostico += "Excelente! O seu Plantio Direto protege a microbiota terrestre e retém umidade. ";
+        diagnostico += "Excelente! O seu Sistema de Plantio Direto protege a biologia do solo e retém a umidade. ";
     }
 
     if (tipoEnergia === "rede" && usaTecnologia === "nao") {
-        diagnostico += "Sugerimos integrar sensores ou energia fotovoltaica para dar o próximo salto tecnológico e reduzir os custos de produção.";
+        diagnostico += "Dica: Mudar para energia solar ou adotar sensores de precisão traria um grande retorno financeiro e ecológico para a propriedade.";
     } else if (tipoEnergia === "solar" && usaTecnologia === "sim") {
-        diagnostico += "Sua propriedade representa o verdadeiro Agro Forte e Sustentável! Alta tecnologia alinhada com pegada ecológica mínima.";
+        diagnostico += "Parabéns! Sua propriedade representa perfeitamente o Agro Forte e Sustentável: tecnologia de ponta com o mínimo de impacto ambiental.";
     } else {
-        diagnostico += "Você está no caminho certo. Pequenos ajustes em tecnologias de precisão maximizarão seus resultados.";
+        diagnostico += "Você está no caminho certo. Continue expandindo as tecnologias integradas para maximizar seus ganhos de sustentabilidade.";
     }
 
     txtDiagnostico.innerText = diagnostico;
